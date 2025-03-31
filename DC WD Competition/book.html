@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Seat Booking - CineBooker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
+</head>
+<body>
+  <div class="vibrant-loader">
+    <div class="loader-container">
+      <div class="circle-loader">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+      </div>
+     
+      <div class="loading-text">CINEBOOKER</div>
+      <div class="loading-subtext">Your ticket to movie magic</div>
+    </div>
+  </div>
+    <div class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="CINEBOOKER.jpg" alt="CineBooker Logo">
+                    <h1>CineBooker</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="movie.html">Movies</a></li>
+                        <li><a href="aboutus.html">About</a></li>
+                        <li><a href="book.html" class="active">Book Tickets</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div class="booking-container">
+        <div class="movie-selector">
+            <h2><i class="fas fa-film"></i> Select Your Movie</h2>
+            <select id="movie" class="movie-dropdown">
+                <option value="2000">John Wick: Chapter 4 (Rs.2000)</option>
+                <option value="1500">Avatar: The Way of Water (Rs.1500)</option>
+                <option value="1800">Black Panther: Wakanda Forever (Rs.1800)</option>
+                <option value="1900">The Batman (Rs.1900)</option>
+                <option value="1700">Jurassic World Dominion (Rs.1700)</option>
+                <option value="2200">Top Gun: Maverick (Rs.2200)</option>
+                <option value="2000">Doctor Strange 2 (Rs.2000)</option>
+                <option value="1600">The Northman (Rs.1600)</option>
+                <option value="1800">Everything Everywhere All at Once (Rs.1800)</option>
+                <option value="1900">Avengers (Rs.1900)</option>
+                <option value="1700">Spider Man: Across the Spider Verse (Rs.1700)</option>
+                <option value="2200">M3GAN (Rs.2200)</option>
+                <option value="2000">Oppenheimer (Rs.2000)</option>
+                <option value="1600">The Bullet Train (Rs.1600)</option>
+                <option value="1800">Dune: Part Two (Rs.1800)</option>
+                <option value="2000">Harry Potter (Rs.2000)</option>
+                <option value="1500">Percy Jackson: Lightning Thief (Rs.1500)</option>
+                <option value="1500">Pirates of the Caribbean (Rs.1500)</option>
+                <option value="2000">Bagman (Rs.2000)</option>
+                <option value="1700">Lord of Rings (Rs.1700)</option>
+            </select>
+            
+            <div class="movie-info">
+                <div class="movie-poster" id="selectedMoviePoster">
+                    <img src="https://via.placeholder.com/150x225?text=Select+Movie" alt="Movie Poster">
+                </div>
+                <div class="movie-details">
+                    <h3 id="selectedMovieTitle">Select a movie</h3>
+                    <div class="movie-meta">
+                        <span class="rating"><i class="fas fa-star"></i> <span id="movieRating">-</span></span>
+                        <span class="duration"><i class="fas fa-clock"></i> <span id="movieDuration">-</span></span>
+                        <span class="genre"><i class="fas fa-tag"></i> <span id="movieGenre">-</span></span>
+                    </div>
+                    <p class="price">Price: <span id="moviePrice">-</span></p>
+                    <p class="synopsis" id="movieSynopsis">Please select a movie to view details</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="theater-container">
+            <div class="screen-view">
+                <div class="screen">SCREEN</div>
+                <div class="seat-map" id="seatMap"></div>
+                <div class="seat-legend">
+                    <div class="legend-item">
+                        <div class="seat available-legend"></div>
+                        <span>Available</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="seat selected-legend"></div>
+                        <span>Selected</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="seat occupied-legend"></div>
+                        <span>Occupied</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="seat vip-legend"></div>
+                        <span>VIP (+Rs.500)</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="booking-summary">
+                <h3><i class="fas fa-ticket-alt"></i> Booking Summary</h3>
+                <div class="summary-details">
+                    <div class="summary-item">
+                        <span>Movie:</span>
+                        <span id="summaryMovie">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Date:</span>
+                        <span id="summaryDate">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Time:</span>
+                        <span id="summaryTime">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Seats:</span>
+                        <span id="summarySeats">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Base Price:</span>
+                        <span id="summaryBasePrice">Rs. 0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>VIP Seats:</span>
+                        <span id="summaryVipPrice">Rs. 0</span>
+                    </div>
+                    <div class="summary-item total">
+                        <span>Total:</span>
+                        <span id="summaryTotal">Rs. 0</span>
+                    </div>
+                </div>
+                <button class="btn proceed-btn" id="proceedBtn">Confirm Booking</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="ticketModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="ticket">
+                <div class="ticket-header">
+                    <img src="CINEBOOKER.jpg" alt="CineBooker Logo" class="ticket-logo">
+                    <h3>E-Ticket</h3>
+                    <div class="ticket-ribbon" id="vipRibbon">VIP</div>
+                </div>
+                <div class="ticket-body">
+                    <div class="ticket-info">
+                        <div class="info-item">
+                            <span class="info-label">Movie:</span>
+                            <span class="info-value" id="ticketMovie">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Date:</span>
+                            <span class="info-value" id="ticketDate">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Time:</span>
+                            <span class="info-value" id="ticketTime">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Seats:</span>
+                            <span class="info-value" id="ticketSeats">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Theater:</span>
+                            <span class="info-value">CineBooker Premium</span>
+                        </div>
+                    </div>
+                    <div class="ticket-barcode">
+                        <svg id="barcode"></svg>
+                        <p class="ticket-number">Ticket #<span id="ticketNumber">000000</span></p>
+                    </div>
+                </div>
+                <div class="ticket-footer">
+                    <p class="total-amount">Total: <span id="ticketTotal">Rs. 0</span></p>
+                    <div class="ticket-actions">
+                        <button class="btn print-btn" onclick="window.print()">
+                            <i class="fas fa-print"></i> Print Ticket
+                        </button>
+                        <button class="btn pay-now-btn" onclick="window.location.href='paynow.html'">
+                            <i class="fas fa-credit-card"></i> Pay Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About CineBooker</h4>
+                    <p>Your premier destination for movie tickets booking with the best seats and exclusive offers.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="movie.html">Movies</a></li>
+                        <li><a href="aboutus.html">About Us</a></li>
+                        <li><a href="book.html">Book Tickets</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Cinema Street, Movie City</p>
+                    <p><i class="fas fa-phone"></i> +123 456 7890</p>
+                    <p><i class="fas fa-envelope"></i> info@cinebooker.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 CineBooker. All Rights Reserved.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      //loading
+      window.addEventListener('load', function() {
+       
+        setTimeout(function() {
+          const loader = document.querySelector('.vibrant-loader');
+          loader.classList.add('hidden');
+          
+          
+          setTimeout(function() {
+            loader.remove();
+          }, 800);
+        }, 2000); 
+      });
+    
+      
+      setTimeout(function() {
+        const loader = document.querySelector('.vibrant-loader');
+        if (loader && !loader.classList.contains('hidden')) {
+          loader.classList.add('hidden');
+          setTimeout(function() {
+            loader.remove();
+          }, 800);
+        }
+      }, 4000); 
+    </script>
+</body>
+</html>

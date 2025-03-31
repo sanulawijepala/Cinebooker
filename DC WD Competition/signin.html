@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+    <link rel="stylesheet" href="style2.css" />
+    <title>Sign in & Sign up Form</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="vibrant-loader">
+    <div class="loader-container">
+      <div class="circle-loader">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+      </div>
+     
+      <div class="loading-text">CINEBOOKER</div>
+      <div class="loading-subtext">Your ticket to movie magic</div>
+    </div>
+  </div>
+  
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li active><a href="login.html">Login</a></li>
+        <li><a href="signup.html">Signup</a></li>
+    </ul>
+
+    <!-- Main Container -->
+    <div class="container">
+        <div class="forms-container">
+            <div class="signin-signup">
+                <!-- Sign In Form -->
+                <form action="#" class="sign-in-form">
+                    <h2 class="title">Sign in</h2>
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="username" placeholder="Username" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Password" />
+                    </div>
+                    <input type="submit" value="Login" class="btn solid" id="loginBtn" />
+                    <p class="social-text">Or Sign in with social platforms</p>
+                    <div class="social-media">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-google"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </form>
+
+                <!-- Sign Up Form -->
+                <form action="#" class="sign-up-form">
+                    <h2 class="title">Sign up</h2>
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input type="text" placeholder="Username" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" placeholder="Email" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Password" />
+                    </div>
+                    <input type="submit"value= "Signup" class="btn solid" id="SignupBtn" />
+                    <p class="social-text">Or Sign up with social platforms</p>
+                    <div class="social-media">
+                      <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                      <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                      <a href="#" class="social-icon"><i class="fab fa-google"></i></a>
+                      <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                      
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Panels for animation -->
+        <div class="panels-container">
+            <div class="panel left-panel">
+                <div class="content">
+                    <h3>New here ?</h3>
+                    <p>Join us today and enjoy the benefits of being a part of our community.</p>
+                    <button class="btn transparent" id="sign-up-btn">Sign up</button>
+                </div>
+            </div>
+            <div class="panel right-panel">
+                <div class="content">
+                    <h3>One of us ?</h3>
+                    <p>Welcome back! Sign in to continue your journey with us.</p>
+                    <button class="btn transparent" id="sign-in-btn">Sign in</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup Modal -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+          
+            <span id="closePopup" class="close">&times;</span>
+            <img src="avatar.png" alt="User Avatar" class="avatar">
+            <h2>Welcome, <span id="userName"></span>!</h2>
+            <p>You have successfully logged in.</p>
+            <div class="popup-buttons">
+              <button class="btn continue-btn" onclick="window.location.href='index.html'">
+                  <i class="fas fa-home"></i> Continue to Home
+              </button>
+        </div>
+    </div>
+    <div id="registerPopup" class="popup">
+      <div class="popup-content">
+          <span class="close" id="closeRegisterPopup">&times;</span>
+          <h2>Registration Successful!</h2>
+          <p>You can now log in.</p>
+          <button class="btn" id="goToLogin">Login</button>
+      </div>
+  </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

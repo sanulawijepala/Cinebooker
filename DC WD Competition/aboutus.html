@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About CineBooker - Your Ultimate Movie Experience</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #7fc142;
+            --secondary: #ff4d4d;
+            --dark: #282834;
+            --light: #f8f8f8;
+            --text: #333;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        @font-face {
+            font-family: 'Poppins';
+            src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        }
+
+        
+        header {
+            background: linear-gradient(135deg, var(--dark), #000);
+            color: white;
+            padding: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+       
+        .hero {
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: rgba(255,255,255,0.9);
+            animation: fadeInUp 1s ease 0.3s forwards;
+            opacity: 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            animation: fadeInUp 1s ease 0.6s forwards;
+            opacity: 0;
+            box-shadow: 0 4px 15px rgba(127, 193, 66, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(127, 193, 66, 0.6);
+        }
+
+       
+        .about {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 3rem;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .about-image:hover img {
+            transform: scale(1.02);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-text {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        
+        .team {
+            padding: 5rem 0;
+            background: #f5f5f5;
+        }
+
+        .team-members {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .team-member {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            width: 280px;
+            position: relative;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .member-image {
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .team-member:hover .member-image img {
+            transform: scale(1.1);
+        }
+
+        .member-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .member-info h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .member-info p {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+       
+        .timeline {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--primary);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 30px;
+            position: relative;
+            margin: 10px 0;
+            width: 50%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            align-self: flex-end;
+            justify-content: flex-start;
+            padding-left: 30px;
+            padding-right: 0;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            width: calc(100% - 40px);
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            text-align: right;
+        }
+
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: -10px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            transform: rotate(45deg);
+            box-shadow: 5px -5px 10px rgba(0,0,0,0.1);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            right: auto;
+            left: -10px;
+            box-shadow: -5px 5px 10px rgba(0,0,0,0.1);
+        }
+
+        .timeline-date {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .timeline-text {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .timeline-circle {
+            position: absolute;
+            top: 20px;
+            right: -6px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-circle {
+            right: auto;
+            left: -6px;
+        }
+
+        
+        .testimonials {
+            padding: 5rem 0;
+            background: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1625&q=80') no-repeat center center/cover;
+            position: relative;
+            color: white;
+        }
+
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+        }
+
+        .testimonial-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .testimonial-slider {
+            position: relative;
+            overflow: hidden;
+            padding: 2rem 0;
+        }
+
+        .testimonial-slide {
+            display: none;
+            padding: 2rem;
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+
+        .testimonial-slide.active {
+            display: block;
+        }
+
+        .testimonial-text {
+            font-size: 1.3rem;
+            font-style: italic;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .author-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            border: 3px solid var(--primary);
+        }
+
+        .author-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .author-title {
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .slider-dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+
+        
+        .cta {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--dark), #000);
+            color: white;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--dark);
+        }
+
+        
+        footer {
+            background: #111;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-col p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: #aaa;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: var(--transition);
+            display: block;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #222;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .footer-social a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #222;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(127, 193, 66, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+            }
+        }
+
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 1.5rem;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 0 1rem;
+            }
+
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 0;
+            }
+
+            .timeline-item:nth-child(odd) {
+                padding-left: 70px;
+            }
+
+            .timeline-content::after {
+                left: 20px;
+                right: auto;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content::after {
+                left: 20px;
+            }
+
+            .timeline-circle {
+                left: 24px;
+                right: auto;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-circle {
+                left: 24px;
+            }
+        }
+
+        
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: particle-animation linear infinite;
+        }
+
+        @keyframes particle-animation {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        
+        .counter {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            transition: all 0.5s ease;
+        }
+
+        
+        .card-3d {
+            transform-style: preserve-3d;
+            transition: all 0.5s ease;
+        }
+
+        .card-3d:hover {
+            transform: rotateY(10deg) rotateX(5deg) scale(1.05);
+        }
+
+      
+        .glow {
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px rgba(127, 193, 66, 0.5);
+            }
+            to {
+                box-shadow: 0 0 20px rgba(127, 193, 66, 0.8);
+            }
+        }
+
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .vibrant-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.8s ease-out;
+}
+
+.loader-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle-loader {
+  position: relative;
+  width: 180px;
+  height: 180px;
+}
+
+.circle {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  animation: rotate 4s linear infinite;
+}
+
+.circle:nth-child(1) {
+  border-top-color: #ff4d4d;
+  animation-delay: 0.1s;
+}
+
+.circle:nth-child(2) {
+  border-right-color: #7fc142;
+  animation-delay: 0.2s;
+}
+
+.circle:nth-child(3) {
+  border-bottom-color: #ffcc00;
+  animation-delay: 0.3s;
+}
+
+.circle:nth-child(4) {
+  border-left-color: #00ccff;
+  animation-delay: 0.4s;
+}
+
+.circle:nth-child(5) {
+  border-top-color: #ff00cc;
+  animation-delay: 0.5s;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: rotate(180deg) scale(0.8);
+    opacity: 0.7;
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+    opacity: 1;
+  }
+}
+
+.film-reel {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background: #222;
+  border-radius: 50%;
+  border: 8px solid #444;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: pulse 2s infinite alternate;
+}
+
+.reel-hole {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #888;
+  border-radius: 50%;
+}
+
+.reel-hole:nth-child(1) {
+  top: 15px;
+  left: 15px;
+}
+
+.reel-hole:nth-child(2) {
+  top: 15px;
+  right: 15px;
+}
+
+.reel-hole:nth-child(3) {
+  bottom: 15px;
+  left: 15px;
+}
+
+.reel-hole:nth-child(4) {
+  bottom: 15px;
+  right: 15px;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255,255,255,0.1);
+  }
+  100% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(255,255,255,0);
+  }
+}
+
+.loading-text {
+  margin-top: 30px;
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: textGlow 2s infinite alternate;
+}
+
+.loading-subtext {
+  margin-top: 10px;
+  color: rgba(255,255,255,0.8);
+  font-size: 1rem;
+  letter-spacing: 2px;
+}
+
+@keyframes textGlow {
+  0% {
+    text-shadow: 0 0 5px rgba(255,255,255,0.3);
+  }
+  100% {
+    text-shadow: 0 0 15px rgba(255,255,255,0.8),
+                 0 0 25px rgba(127, 193, 66, 0.5);
+  }
+}
+
+
+.vibrant-loader.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+    </style>
+</head>
+<body>
+    <div class="vibrant-loader">
+        <div class="loader-container">
+          <div class="circle-loader">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+          </div>
+         
+          <div class="loading-text">CINEBOOKER</div>
+          <div class="loading-subtext">Your ticket to movie magic</div>
+        </div>
+      </div>
+    <div class="floating-elements">
+        <div class="floating-element" style="width: 100px; height: 100px; top: 20%; left: 10%; animation-duration: 20s;"></div>
+        <div class="floating-element" style="width: 150px; height: 150px; top: 60%; left: 70%; animation-duration: 25s; animation-delay: -5s;"></div>
+        <div class="floating-element" style="width: 80px; height: 80px; top: 80%; left: 30%; animation-duration: 18s; animation-delay: -10s;"></div>
+        <div class="floating-element" style="width: 120px; height: 120px; top: 40%; left: 50%; animation-duration: 22s; animation-delay: -7s;"></div>
+    </div>
+
+   
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="CINEBOOKER.jpg" alt="CineBooker Logo">
+                <h1>CineBooker</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="aboutus.html" class="active">About</a></li>
+                    <li><a href="movie.html">Movies</a></li>
+                    <li><a href="book.html">Book Tickets</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Our Story</h2>
+            <p>Discover the passion behind CineBooker and how we're revolutionizing the movie booking experience</p>
+            <a href="#about" class="btn">Explore More</a>
+        </div>
+    </section>
+
+    
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About CineBooker</h2>
+                <p>We're more than just a booking platform - we're movie enthusiasts dedicated to enhancing your cinema experience</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Redefining Movie Experiences</h3>
+                    <p>CineBooker was born from a simple idea: movie booking should be effortless, enjoyable, and accessible to everyone. Our platform combines cutting-edge technology with a deep love for cinema to create an experience that goes beyond just buying tickets.</p>
+                    <p>Since our launch in 2020, we've grown from a small startup to the leading online movie booking platform in the region, serving over 1 million happy customers.</p>
+                    <p>Our team of film buffs and tech experts work tirelessly to ensure you get the best seats, the best prices, and the best overall experience when you visit the cinema.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Cinema Interior">
+                </div>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="customerCount">0</div>
+                    <div class="stat-text">Happy Customers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="movieCount">0</div>
+                    <div class="stat-text">Movies Listed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="theaterCount">0</div>
+                    <div class="stat-text">Partner Theaters</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="bookingCount">0</div>
+                    <div class="stat-text">Tickets Booked</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="team">
+        <div class="container">
+            <div class="section-title">
+                <h2>Meet Our Team</h2>
+                <p>The passionate people behind CineBooker who make your movie experience magical</p>
+            </div>
+            <div class="team-members">
+                
+                <div class="team-member card-3d">
+                    <div class="member-image">
+                        <img src="CEO.jpg" alt="Team Member">
+                    </div>
+                    <div class="member-info">
+                        <h4>Sanula Wijepala</h4>
+                        <p>CEO</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="timeline">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Journey</h2>
+                <p>Key milestones in the CineBooker story</p>
+            </div>
+            <div class="timeline-container">
+                <div class="timeline-item">
+                    <div class="timeline-content reveal">
+                        <div class="timeline-date">June 2020</div>
+                        <h3 class="timeline-title">CineBooker Founded</h3>
+                        <p class="timeline-text">Launched with a vision to revolutionize movie ticket booking with our innovative platform.</p>
+                    </div>
+                    <div class="timeline-circle"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content reveal">
+                        <div class="timeline-date">December 2020</div>
+                        <h3 class="timeline-title">First Major Partnership</h3>
+                        <p class="timeline-text">Signed contracts with 5 major cinema chains, expanding our reach across the country.</p>
+                    </div>
+                    <div class="timeline-circle"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content reveal">
+                        <div class="timeline-date">July 2021</div>
+                        <h3 class="timeline-title">Mobile App Launch</h3>
+                        <p class="timeline-text">Released our iOS and Android apps, making booking even more convenient.</p>
+                    </div>
+                    <div class="timeline-circle"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content reveal">
+                        <div class="timeline-date">January 2022</div>
+                        <h3 class="timeline-title">1 Million Users</h3>
+                        <p class="timeline-text">Celebrated reaching our first million registered users on the platform.</p>
+                    </div>
+                    <div class="timeline-circle"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content reveal">
+                        <div class="timeline-date">Present</div>
+                        <h3 class="timeline-title">Continuing Innovation</h3>
+                        <p class="timeline-text">Working on new features to make your movie experience even better.</p>
+                    </div>
+                    <div class="timeline-circle"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>What People Say</h2>
+                <p>Hear from our satisfied customers</p>
+            </div>
+            <div class="testimonial-container">
+                <div class="testimonial-slider">
+                    <div class="testimonial-slide active">
+                        <p class="testimonial-text">"CineBooker has completely transformed how I watch movies. The seat selection is so intuitive and I love getting notifications about new releases!"</p>
+                        <div class="testimonial-author">
+                            <div class="author-image">
+                                <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Customer">
+                            </div>
+                            <div class="author-name">Jennifer Parker</div>
+                            <div class="author-title">Movie Enthusiast</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <p class="testimonial-text">"As someone who goes to the cinema weekly, CineBooker saves me so much time. The app is beautifully designed and always works flawlessly."</p>
+                        <div class="testimonial-author">
+                            <div class="author-image">
+                                <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Customer">
+                            </div>
+                            <div class="author-name">David Wilson</div>
+                            <div class="author-title">Film Critic</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <p class="testimonial-text">"I love the special deals and early access to tickets that CineBooker offers. It's become my go-to for all movie bookings."</p>
+                        <div class="testimonial-author">
+                            <div class="author-image">
+                                <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Customer">
+                            </div>
+                            <div class="author-name">Sophia Martinez</div>
+                            <div class="author-title">Frequent Moviegoer</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-controls">
+                    <div class="slider-dot active" data-slide="0"></div>
+                    <div class="slider-dot" data-slide="1"></div>
+                    <div class="slider-dot" data-slide="2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    <section class="cta">
+        <div class="container">
+            <h2>Ready for Your Next Movie Experience?</h2>
+            <p>Join thousands of happy customers who are enjoying seamless movie bookings with CineBooker</p>
+            <div class="btn-group">
+                <a href="book.html" class="btn">Book Tickets Now</a>
+                <a href="contact.html" class="btn btn-outline">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>About CineBooker</h3>
+                <p>Your premier destination for easy, fast, and reliable movie ticket bookings. We're passionate about cinema and committed to enhancing your movie-going experience.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="movies.html">Movies</a></li>
+                    <li><a href="book.html">Book Tickets</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact Info</h3>
+                <ul class="footer-links">
+                    <li><a href="mailto:info@cinebooker.com"><i class="fas fa-envelope"></i> info@cinebooker.com</a></li>
+                    <li><a href="tel:+1234567890"><i class="fas fa-phone"></i> +123 456 7890</a></li>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123 Cinema Street, Movie City</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 CineBooker. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        
+        function animateCounter(element, target, duration = 2000) {
+            const start = 0;
+            const increment = target / (duration / 16);
+            let current = start;
+            const counter = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    clearInterval(counter);
+                    element.textContent = target.toLocaleString();
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString();
+                }
+            }, 16);
+        }
+
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(document.getElementById('customerCount'), 1250000);
+                    animateCounter(document.getElementById('movieCount'), 485);
+                    animateCounter(document.getElementById('theaterCount'), 42);
+                    animateCounter(document.getElementById('bookingCount'), 3560000);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(document.querySelector('.stats'));
+
+        
+        const testimonialSlides = document.querySelectorAll('.testimonial-slide');
+        const dots = document.querySelectorAll('.slider-dot');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            testimonialSlides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            testimonialSlides[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentSlide = index;
+        }
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => showSlide(index));
+        });
+
+        
+        setInterval(() => {
+            let nextSlide = (currentSlide + 1) % testimonialSlides.length;
+            showSlide(nextSlide);
+        }, 5000);
+
+       
+        const revealElements = document.querySelectorAll('.reveal');
+
+        function checkReveal() {
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkReveal);
+        window.addEventListener('load', checkReveal);
+
+        
+        function createParticles() {
+            const particlesContainer = document.createElement('div');
+            particlesContainer.className = 'particles';
+            document.body.appendChild(particlesContainer);
+
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                
+                const size = Math.random() * 5 + 2;
+                const posX = Math.random() * 100;
+                const duration = Math.random() * 10 + 10;
+                const delay = Math.random() * -20;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        
+        document.querySelectorAll('.card-3d').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 15;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 15;
+                card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            });
+
+            card.addEventListener('mouseenter', () => {
+                card.style.transition = 'none';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transition = 'all 0.5s ease';
+                card.style.transform = 'rotateY(0) rotateX(0)';
+            });
+        });
+
+        
+        document.querySelectorAll('.floating-element').forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                element.style.background = 'rgba(127, 193, 66, 0.3)';
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                element.style.background = 'rgba(127, 193, 66, 0.1)';
+            });
+        });
+
+       
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                button.classList.add('glow');
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.classList.remove('glow');
+            });
+        });
+
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        //loading
+        window.addEventListener('load', function() {
+         
+          setTimeout(function() {
+            const loader = document.querySelector('.vibrant-loader');
+            loader.classList.add('hidden');
+            
+            
+            setTimeout(function() {
+              loader.remove();
+            }, 800);
+          }, 2000); 
+        });
+      
+        
+        setTimeout(function() {
+          const loader = document.querySelector('.vibrant-loader');
+          if (loader && !loader.classList.contains('hidden')) {
+            loader.classList.add('hidden');
+            setTimeout(function() {
+              loader.remove();
+            }, 800);
+          }
+        }, 4000); 
+      </script>
+</body>
+</html>

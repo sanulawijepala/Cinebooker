@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Now Showing - CineBooker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #7fc142;
+            --secondary: #ff4d4d;
+            --dark: #282834;
+            --light: #f8f8f8;
+            --text: #333;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        .vibrant-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.8s ease-out;
+}
+
+.loader-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle-loader {
+  position: relative;
+  width: 180px;
+  height: 180px;
+}
+
+.circle {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  animation: rotate 4s linear infinite;
+}
+
+.circle:nth-child(1) {
+  border-top-color: #ff4d4d;
+  animation-delay: 0.1s;
+}
+
+.circle:nth-child(2) {
+  border-right-color: #7fc142;
+  animation-delay: 0.2s;
+}
+
+.circle:nth-child(3) {
+  border-bottom-color: #ffcc00;
+  animation-delay: 0.3s;
+}
+
+.circle:nth-child(4) {
+  border-left-color: #00ccff;
+  animation-delay: 0.4s;
+}
+
+.circle:nth-child(5) {
+  border-top-color: #ff00cc;
+  animation-delay: 0.5s;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: rotate(180deg) scale(0.8);
+    opacity: 0.7;
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+    opacity: 1;
+  }
+}
+
+.film-reel {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background: #222;
+  border-radius: 50%;
+  border: 8px solid #444;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: pulse 2s infinite alternate;
+}
+
+.reel-hole {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #888;
+  border-radius: 50%;
+}
+
+.reel-hole:nth-child(1) {
+  top: 15px;
+  left: 15px;
+}
+
+.reel-hole:nth-child(2) {
+  top: 15px;
+  right: 15px;
+}
+
+.reel-hole:nth-child(3) {
+  bottom: 15px;
+  left: 15px;
+}
+
+.reel-hole:nth-child(4) {
+  bottom: 15px;
+  right: 15px;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255,255,255,0.1);
+  }
+  100% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(255,255,255,0);
+  }
+}
+
+.loading-text {
+  margin-top: 30px;
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: textGlow 2s infinite alternate;
+}
+
+.loading-subtext {
+  margin-top: 10px;
+  color: rgba(255,255,255,0.8);
+  font-size: 1rem;
+  letter-spacing: 2px;
+}
+
+@keyframes textGlow {
+  0% {
+    text-shadow: 0 0 5px rgba(255,255,255,0.3);
+  }
+  100% {
+    text-shadow: 0 0 15px rgba(255,255,255,0.8),
+                 0 0 25px rgba(127, 193, 66, 0.5);
+  }
+}
+
+
+.vibrant-loader.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+        .header {
+            background: linear-gradient(135deg, var(--dark), #000);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            background: url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            color: white;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .movies-container {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+        }
+
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .movie-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .movie-poster {
+            height: 350px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .movie-poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .movie-card:hover .movie-poster img {
+            transform: scale(1.05);
+        }
+
+        .trending-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--secondary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            animation: pulse 2s infinite;
+        }
+
+        .movie-info {
+            padding: 1.5rem;
+        }
+
+        .movie-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .movie-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .movie-rating {
+            color: #fbb034;
+            font-weight: 600;
+        }
+
+        .movie-description {
+            margin-bottom: 1.5rem;
+            color: #555;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            display: -webkit-box;
+            
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .showtimes {
+            margin-bottom: 1.5rem;
+        }
+
+        .showtimes-title {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .time-slots {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .time-slot {
+            background: #f0f0f0;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .time-slot:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .time-slot.selected {
+            background: var(--primary);
+            color: white;
+        }
+
+        .movie-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .book-btn {
+            display: block;
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .book-btn:hover {
+            background: #6ab136;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(127, 193, 66, 0.4);
+        }
+
+        .footer {
+            background: #111;
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #222;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 0 0.8rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .movies-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .movies-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="vibrant-loader">
+        <div class="loader-container">
+          <div class="circle-loader">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+          </div>
+         
+          <div class="loading-text">CINEBOOKER</div>
+          <div class="loading-subtext">Your ticket to movie magic</div>
+        </div>
+      </div>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="CINEBOOKER.jpg" alt="CineBooker Logo">
+                    <h1>CineBooker</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="movie.html" class="active">Movies</a></li>
+                        <li><a href="aboutus.html">About</a></li>
+                        <li><a href="book.html">Book Tickets</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Now Showing</h2>
+            <p>Book your favorite movies with just one click</p>
+        </div>
+    </section>
+
+    <section class="movies-container">
+        <div class="container">
+            <div class="section-title">
+                <h2>Latest Releases</h2>
+                <p>Choose from our wide selection of movies</p>
+            </div>
+            <div class="movies-grid">
+                <!-- Movie 1 -->
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <img src="johnwick.jpg">
+                        <div class="trending-badge">Trending</div>
+                    </div>
+                    <div class="movie-info">
+                        <h3 class="movie-title">John Wick: Chapter 4</h3>
+                        <div class="movie-meta">
+                            <span class="movie-rating"><i class="fas fa-star"></i> 4.5</span>
+                            <span>Action</span>
+                        </div>
+                        <p class="movie-description">John Wick uncovers a path to defeating The High Table. But before he can earn his freedom, Wick must face off against a new enemy with powerful alliances across the globe.</p>
+                        <div class="showtimes">
+                            <h4 class="showtimes-title">Today's Showtimes</h4>
+                            <div class="time-slots">
+                                <span class="time-slot">10:00 AM</span>
+                                <span class="time-slot">1:30 PM</span>
+                                <span class="time-slot">5:00 PM</span>
+                                <span class="time-slot">8:30 PM</span>
+                            </div>
+                        </div>
+                        <div class="movie-price">Rs. 2000</div>
+                        <a href="book.html" class="book-btn">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Movie 2 -->
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <img src="avatar1.jpg" alt="Avatar: The Way of Water">
+                        <div class="trending-badge">Trending</div>
+                    </div>
+                    <div class="movie-info">
+                        <h3 class="movie-title">Avatar: The Way of Water</h3>
+                        <div class="movie-meta">
+                            <span class="movie-rating"><i class="fas fa-star"></i> 4.3</span>
+                            <span>Sci-Fi</span>
+                        </div>
+                        <p class="movie-description">Jake Sully lives with his newfound family formed on the planet of Pandora. When a familiar threat returns, Jake must work with Neytiri to protect their home.</p>
+                        <div class="showtimes">
+                            <h4 class="showtimes-title">Today's Showtimes</h4>
+                            <div class="time-slots">
+                                <span class="time-slot">9:30 AM</span>
+                                <span class="time-slot">12:45 PM</span>
+                                <span class="time-slot">4:15 PM</span>
+                                <span class="time-slot">7:45 PM</span>
+                            </div>
+                        </div>
+                        <div class="movie-price">Rs. 1500</div>
+                        <a href="book.html" class="book-btn">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Movie 3 -->
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <img src="blackpanter.jpg" alt="Black Panther: Wakanda Forever">
+                    </div>
+                    <div class="movie-info">
+                        <h3 class="movie-title">Black Panther: Wakanda Forever</h3>
+                        <div class="movie-meta">
+                            <span class="movie-rating"><i class="fas fa-star"></i> 4.1</span>
+                            <span>Action</span>
+                        </div>
+                        <p class="movie-description">The people of Wakanda fight to protect their home from intervening world powers as they mourn the death of King T'Challa.</p>
+                        <div class="showtimes">
+                            <h4 class="showtimes-title">Today's Showtimes</h4>
+                            <div class="time-slots">
+                                <span class="time-slot">11:00 AM</span>
+                                <span class="time-slot">2:30 PM</span>
+                                <span class="time-slot">6:00 PM</span>
+                                <span class="time-slot">9:30 PM</span>
+                            </div>
+                        </div>
+                        <div class="movie-price">Rs. 1800</div>
+                        <a href="book.html" class="book-btn">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Movie 4 -->
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <img src="The batman.jpg" alt="The Batman">
+                    </div>
+                    <div class="movie-info">
+                        <h3 class="movie-title">The Batman</h3>
+                        <div class="movie-meta">
+                            <span class="movie-rating"><i class="fas fa-star"></i> 4.2</span>
+                            <span>Action</span>
+                        </div>
+                        <p class="movie-description">When a sadistic serial killer begins murdering key political figures in Gotham, Batman is forced to investigate the city's hidden corruption.</p>
+                        <div class="showtimes">
+                            <h4 class="showtimes-title">Today's Showtimes</h4>
+                            <div class="time-slots">
+                                <span class="time-slot">10:30 AM</span>
+                                <span class="time-slot">1:45 PM</span>
+                                <span class="time-slot">5:15 PM</span>
+                                <span class="time-slot">8:45 PM</span>
+                            </div>
+                        </div>
+                        <div class="movie-price">Rs. 1900</div>
+                        <a href="book.html" class="book-btn">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Movie 5 -->
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <img src="jurasic.jpg" alt="Jurassic World Dominion">
+                    </div>
+                    <div class="movie-info">
+                        <h3 class="movie-title">Jurassic World Dominion</h3>
+                        <div class="movie-meta">
+                            <span class="movie-rating"><i class="fas fa-star"></i> 3.9</span>
+                            <span>Adventure</span>
+                        </div>
+                        <p class="movie-description">Four years after the destruction of Isla Nublar, dinosaurs now live and hunt alongside humans all over the world.</p>
+                        <div class="showtimes">
+                            <h4 class="showtimes-title">Today's Showtimes</h4>
+                            <div class="time-slots">
+                                <span class="time-slot">9:00 AM</span>
+                                <span class="time-slot">12:15 PM</span>
+                                <span class="time-slot">3:45 PM</span>
+                                <span class="time-slot">7:15 PM</span>
+                            </div>
+                        </div>
+                        <div class="movie-price">Rs. 1700</div>
+                        <a href="book.html" class="book-btn">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Movie 6 -->
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <img src="topgun.jpg" alt="Top Gun: Maverick">
+                        <div class="trending-badge">Trending</div>
+                    </div>
+                    <div class="movie-info">
+                        <h3 class="movie-title">Top Gun: Maverick</h3>
+                        <div class="movie-meta">
+                            <span class="movie-rating"><i class="fas fa-star"></i> 4.7</span>
+                            <span>Action</span>
+                        </div>
+                        <p class="movie-description">After more than thirty years of service as one of the Navy's top aviators, Pete Mitchell is where he belongs, pushing the envelope as a courageous test pilot.</p>
+                        <div class="showtimes">
+                            <h4 class="showtimes-title">Today's Showtimes</h4>
+                            <div class="time-slots">
+                                <span class="time-slot">10:15 AM</span>
+                                <span class="time-slot">1:30 PM</span>
+                                <span class="time-slot">5:00 PM</span>
+                                <span class="time-slot">8:30 PM</span>
+                            </div>
+                        </div>
+                        <div class="movie-price">Rs. 2200</div>
+                        <a href="book.html" class="book-btn">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Movie 7 -->
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <img src="strange.jpg" alt="Doctor Strange in the Multiverse of Madness">
+                    </div>
+                    <div class="movie-info">
+                        <h3 class="movie-title">Doctor Strange 2</h3>
+                        <div class="movie-meta">
+                            <span class="movie-rating"><i class="fas fa-star"></i> 4.0</span>
+                            <span>Fantasy</span>
+                        </div>
+                        <p class="movie-description">Doctor Strange teams up with a mysterious teenage girl from his dreams who can travel across multiverses, to battle multiple threats.</p>
+                        <div class="showtimes">
+                            <h4 class="showtimes-title">Today's Showtimes</h4>
+                            <div class="time-slots">
+                                <span class="time-slot">11:30 AM</span>
+                                <span class="time-slot">2:45 PM</span>
+                                <span class="time-slot">6:15 PM</span>
+                                <span class="time-slot">9:45 PM</span>
+                            </div>
+                        </div>
+                        <div class="movie-price">Rs. 2000</div>
+                        <a href="book.html" class="book-btn">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Movie 8 -->
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <img src="thenorthman.jpeg" alt="The Northman">
+                    </div>
+                    <div class="movie-info">
+                        <h3 class="movie-title">The Northman</h3>
+                        <div class="movie-meta">
+                            <span class="movie-rating"><i class="fas fa-star"></i> 4.1</span>
+                            <span>Action</span>
+                        </div>
+                        <p class="movie-description">A young Viking prince is on a quest to avenge his father's murder when he's suddenly captured by slavers and taken to Iceland.</p>
+                        <div class="showtimes">
+                            <h4 class="showtimes-title">Today's Showtimes</h4>
+                            <div class="time-slots">
+                                <span class="time-slot">10:45 AM</span>
+                                <span class="time-slot">2:00 PM</span>
+                                <span class="time-slot">5:30 PM</span>
+                                <span class="time-slot">9:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="movie-price">Rs. 1600</div>
+                        <a href="book.html" class="book-btn">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Movie 9 -->
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <img src="everything.jpg" alt="Everything Everywhere All at Once">
+                        <div class="trending-badge">Trending</div>
+                    </div>
+                    <div class="movie-info">
+                        <h3 class="movie-title">Everything Everywhere All at Once</h3>
+                        <div class="movie-meta">
+                            <span class="movie-rating"><i class="fas fa-star"></i> 4.8</span>
+                            <span>Sci-Fi</span>
+                        </div>
+                        <p class="movie-description">A middle-aged Chinese immigrant is swept up into an insane adventure in which she alone can save existence by exploring other universes connecting with the lives she could have led.</p>
+                        <div class="showtimes">
+                            <h4 class="showtimes-title">Today's Showtimes</h4>
+                            <div class="time-slots">
+                                <span class="time-slot">11:00 AM</span>
+                                <span class="time-slot">2:15 PM</span>
+                                <span class="time-slot">5:45 PM</span>
+                                <span class="time-slot">9:15 PM</span>
+                            </div>
+                        </div>
+                        <div class="movie-price">Rs. 1800</div>
+                        <a href="book.html" class="book-btn">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Movie 10 -->
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <img src="https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg" alt="Avengers">
+                    </div>
+                    <div class="movie-info">
+                        <h3 class="movie-title">Avengers</h3>
+                        <div class="movie-meta">
+                            <span class="movie-rating"><i class="fas fa-star"></i> 5</span>
+                            <span>Action</span>
+                        </div>
+                        <p class="movie-description">Avengers unites Earth's heroes to battle a formidable enemy. Differences fade as they join forces, showcasing teamwork and courage to save humanity.</p>
+                        <div class="showtimes">
+                            <h4 class="showtimes-title">Today's Showtimes</h4>
+                            <div class="time-slots">
+                                <span class="time-slot">10:30 AM</span>
+                                <span class="time-slot">1:45 PM</span>
+                                <span class="time-slot">5:15 PM</span>
+                                <span class="time-slot">8:45 PM</span>
+                            </div>
+                        </div>
+                        <div class="movie-price">Rs. 1900</div>
+                        <a href="book.html" class="book-btn">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Movie 11 -->
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <img src="https://m.media-amazon.com/images/M/MV5BNzQ1ODUzYjktMzRiMS00ODNiLWI4NzQtOTRiN2VlNTNmODFjXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg" alt="Spider-Verse">
+                    </div>
+                    <div class="movie-info">
+                        <h3 class="movie-title">Spider Man: Across the Spider Verse</h3>
+                        <div class="movie-meta">
+                            <span class="movie-rating"><i class="fas fa-star"></i> 3.9</span>
+                            <span>Fantasy Adventure</span>
+                        </div>
+                        <p class="movie-description">Across the Spider-Verse follows Miles Morales as he embarks on an interdimensional journey. Encountering new Spider-People, he confronts dangerous threats and discovers his true potential as a hero.</p>
+                        <div class="showtimes">
+                            <h4 class="showtimes-title">Today's Showtimes</h4>
+                            <div class="time-slots">
+                                <span class="time-slot">9:00 AM</span>
+                                <span class="time-slot">12:15 PM</span>
+                                <span class="time-slot">3:45 PM</span>
+                                <span class="time-slot">7:15 PM</span>
+                            </div>
+                        </div>
+                        <div class="movie-price">Rs. 1700</div>
+                        <a href="book.html" class="book-btn">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Movie 12 -->
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <img src="https://m.media-amazon.com/images/M/MV5BMDk4MTdhYzEtODk3OS00ZDBjLWFhNTQtMDI2ODdjNzQzZTA3XkEyXkFqcGdeQXVyMjMxOTE0ODA@._V1_.jpg" alt="M3GAN">
+                        <div class="trending-badge">Trending</div>
+                    </div>
+                    <div class="movie-info">
+                        <h3 class="movie-title">M3GAN</h3>
+                        <div class="movie-meta">
+                            <span class="movie-rating"><i class="fas fa-star"></i> 4.7</span>
+                            <span>Sci-fi Horror</span>
+                        </div>
+                        <p class="movie-description">M3GAN is a sci‑fi horror thriller where an advanced AI doll, created as a child's companion, becomes dangerously self‑aware—leading to chilling and unpredictable consequences.</p>
+                        <div class="showtimes">
+                            <h4 class="showtimes-title">Today's Showtimes</h4>
+                            <div class="time-slots">
+                                <span class="time-slot">10:15 AM</span>
+                                <span class="time-slot">1:30 PM</span>
+                                <span class="time-slot">5:00 PM</span>
+                                <span class="time-slot">8:30 PM</span>
+                            </div>
+                        </div>
+                        <div class="movie-price">Rs. 2200</div>
+                        <a href="book.html" class="book-btn">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Movie 13 -->
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <img src="Oppenheimer_(film).jpg" alt="Oppenheimer">
+                    </div>
+                    <div class="movie-info">
+                        <h3 class="movie-title">Oppenheimer</h3>
+                        <div class="movie-meta">
+                            <span class="movie-rating"><i class="fas fa-star"></i> 4.0</span>
+                            <span>Action</span>
+                        </div>
+                        <p class="movie-description">Oppenheimer is an intense biographical drama chronicling J. Robert Oppenheimer’s journey as the 'father of the atomic bomb,' exploring his moral dilemmas and the impact of scientific breakthroughs</p>
+                        <div class="showtimes">
+                            <h4 class="showtimes-title">Today's Showtimes</h4>
+                            <div class="time-slots">
+                                <span class="time-slot">11:30 AM</span>
+                                <span class="time-slot">2:45 PM</span>
+                                <span class="time-slot">6:15 PM</span>
+                                <span class="time-slot">9:45 PM</span>
+                            </div>
+                        </div>
+                        <div class="movie-price">Rs. 2000</div>
+                        <a href="book.html" class="book-btn">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Movie 14 -->
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <img src="Bullet_Train_(poster).jpeg" alt="Bullet Train">
+                    </div>
+                    <div class="movie-info">
+                        <h3 class="movie-title">The Bullet Train</h3>
+                        <div class="movie-meta">
+                            <span class="movie-rating"><i class="fas fa-star"></i> 4.1</span>
+                            <span>Action Thriller</span>
+                        </div>
+                        <p class="movie-description">An action-packed thriller set aboard a high-speed train, where multiple assassins’ intersecting paths create a fast-paced, unpredictable adventure.</p>
+                        <div class="showtimes">
+                            <h4 class="showtimes-title">Today's Showtimes</h4>
+                            <div class="time-slots">
+                                <span class="time-slot">10:45 AM</span>
+                                <span class="time-slot">2:00 PM</span>
+                                <span class="time-slot">5:30 PM</span>
+                                <span class="time-slot">9:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="movie-price">Rs. 1600</div>
+                        <a href="book.html" class="book-btn">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Movie 15 -->
+                
+
+                        
+                        <div class="movie-card">
+                            <div class="movie-poster">
+                                <img src="dune.jpg" alt="Dune2">
+                                <div class="trending-badge">Trending</div>
+                            </div>
+                            <div class="movie-info">
+                                <h3 class="movie-title">Dune: Part Two</h3>
+                                <div class="movie-meta">
+                                    <span class="movie-rating"><i class="fas fa-star"></i> 4.8</span>
+                                    <span>Sci-Fi</span>
+                                </div>
+                                <p class="movie-description">An epic continuation of Paul Atreides’ journey, blending political intrigue and breathtaking visuals as the struggle for control of Arrakis intensifies.</p>
+                                <div class="showtimes">
+                                    <h4 class="showtimes-title">Today's Showtimes</h4>
+                                    <div class="time-slots">
+                                        <span class="time-slot">11:00 AM</span>
+                                        <span class="time-slot">2:15 PM</span>
+                                        <span class="time-slot">5:45 PM</span>
+                                        <span class="time-slot">9:15 PM</span>
+                                    </div>
+                                </div>
+                                <div class="movie-price">Rs. 1800</div>
+                                <a href="book.html" class="book-btn">Book Now</a>
+                            </div>
+                        </div>
+        
+                        <!-- Movie 16 -->
+                        <div class="movie-card">
+                            <div class="movie-poster">
+                                <img src="harrysorcerer.jpg" alt="Harrypotter">
+                            </div>
+                            <div class="movie-info">
+                                <h3 class="movie-title">Harry Potter</h3>
+                                <div class="movie-meta">
+                                    <span class="movie-rating"><i class="fas fa-star"></i> 4.1</span>
+                                    <span>Action</span>
+                                </div>
+                                <p class="movie-description">The Harry Potter series follows a young wizard’s journey at Hogwarts as he uncovers magical secrets, forms lasting friendships, and confronts dark forces threatening his world.</p>
+                                <div class="showtimes">
+                                    <h4 class="showtimes-title">Today's Showtimes</h4>
+                                    <div class="time-slots">
+                                        <span class="time-slot">10:45 AM</span>
+                                        <span class="time-slot">2:00 PM</span>
+                                        <span class="time-slot">5:30 PM</span>
+                                        <span class="time-slot">9:00 PM</span>
+                                    </div>
+                                </div>
+                                <div class="movie-price">Rs. 2000</div>
+                                <a href="book.html" class="book-btn">Book Now</a>
+                            </div>
+                        </div>
+        
+                        <!-- Movie 17 -->
+                        <div class="movie-card">
+                            <div class="movie-poster">
+                                <img src="percyjacka.jpg" alt="percy jackson">
+                            </div>
+                            <div class="movie-info">
+                                <h3 class="movie-title">Percy Jackson: Lightning Theif</h3>
+                                <div class="movie-meta">
+                                    <span class="movie-rating"><i class="fas fa-star"></i> 3.9</span>
+                                    <span>Action</span>
+                                </div>
+                                <p class="movie-description">Percy Jackson, the son of Poseidon, must retrieve Zeus' stolen lightning bolt to prevent war. With his friends Annabeth and Grover, he battles mythical creatures and uncovers his destiny.</p>
+                                <div class="showtimes">
+                                    <h4 class="showtimes-title">Today's Showtimes</h4>
+                                    <div class="time-slots">
+                                        <span class="time-slot">11:00 AM</span>
+                                        <span class="time-slot">2:30 PM</span>
+                                        <span class="time-slot">6:00 PM</span>
+                                        <span class="time-slot">9:30 PM</span>
+                                    </div>
+                                </div>
+                                <div class="movie-price">Rs. 1500</div>
+                                <a href="book.html" class="book-btn">Book Now</a>
+                            </div>
+                        </div>
+        
+                        <!-- Movie 18 -->
+                        <div class="movie-card">
+                            <div class="movie-poster">
+                                <img src="piratesofcar.jpg" alt="Avatar: The Way of Water">
+                                <div class="trending-badge">Trending</div>
+                            </div>
+                            <div class="movie-info">
+                                <h3 class="movie-title">Pirates of the Carribean: The Curse of the Black Perl</h3>
+                                <div class="movie-meta">
+                                    <span class="movie-rating"><i class="fas fa-star"></i> 4.3</span>
+                                    <span>Sci-Fi</span>
+                                </div>
+                                <p class="movie-description">Captain Jack Sparrow and Will Turner team up to rescue Elizabeth Swann from cursed pirates led by Barbossa, who seek to break an ancient curse turning them into undead.</p>
+                                <div class="showtimes">
+                                    <h4 class="showtimes-title">Today's Showtimes</h4>
+                                    <div class="time-slots">
+                                        <span class="time-slot">9:30 AM</span>
+                                        <span class="time-slot">12:45 PM</span>
+                                        <span class="time-slot">4:15 PM</span>
+                                        <span class="time-slot">7:45 PM</span>
+                                    </div>
+                                </div>
+                                <div class="movie-price">Rs. 1500</div>
+                                <a href="book.html" class="book-btn">Book Now</a>
+                            </div>
+                        </div>
+        
+                        <!-- Movie 19 -->
+                        <div class="movie-card">
+                            <div class="movie-poster">
+                                <img src="bagman.jpg" alt="John Wick: Chapter 4">
+                                <div class="trending-badge">Trending</div>
+                            </div>
+                            <div class="movie-info">
+                                <h3 class="movie-title">Bagman</h3>
+                                <div class="movie-meta">
+                                    <span class="movie-rating"><i class="fas fa-star"></i> 4.5</span>
+                                    <span>Horror Thriller</span>
+                                </div>
+                                <p class="movie-description">A man confronts his childhood fears when the mythical Bagman returns, threatening his family in this suspenseful horror thriller.</p>
+                                <div class="showtimes">
+                                    <h4 class="showtimes-title">Today's Showtimes</h4>
+                                    <div class="time-slots">
+                                        <span class="time-slot">10:00 AM</span>
+                                        <span class="time-slot">1:30 PM</span>
+                                        <span class="time-slot">5:00 PM</span>
+                                        <span class="time-slot">8:30 PM</span>
+                                    </div>
+                                </div>
+                                <div class="movie-price">Rs. 2000</div>
+                                <a href="book.html" class="book-btn">Book Now</a>
+                            </div>
+                        </div>
+        
+                        <!-- Movie 20 -->
+                        <div class="movie-card">
+                            <div class="movie-poster">
+                                <img src="lord of ring.jpg" alt="Jurassic World Dominion">
+                            </div>
+                            <div class="movie-info">
+                                <h3 class="movie-title">Lord of Rings</h3>
+                                <div class="movie-meta">
+                                    <span class="movie-rating"><i class="fas fa-star"></i> 4.7</span>
+                                    <span>Adventure</span>
+                                </div>
+                                <p class="movie-description">Frodo Baggins, a young hobbit, embarks on a perilous journey to destroy the One Ring and defeat the dark lord Sauron. Joined by a fellowship of allies, he must navigate treacherous lands, battle evil forces, and resist the Ring’s corrupting power.
+
+
+
+
+
+
+
+
+                                </p>
+                                <div class="showtimes">
+                                    <h4 class="showtimes-title">Today's Showtimes</h4>
+                                    <div class="time-slots">
+                                        <span class="time-slot">9:00 AM</span>
+                                        <span class="time-slot">12:15 PM</span>
+                                        <span class="time-slot">3:45 PM</span>
+                                        <span class="time-slot">7:15 PM</span>
+                                    </div>
+                                </div>
+                                <div class="movie-price">Rs. 1700</div>
+                                <a href="book.html" class="book-btn">Book Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+            <footer class="footer">
+                <div class="container">
+                    <div class="footer-container">
+                        <div class="footer-col">
+                            <h3>About CineBooker</h3>
+                            <p>Your premier destination for easy, fast, and reliable movie ticket bookings. We're passionate about cinema and committed to enhancing your movie-going experience.</p>
+                            <div class="footer-social">
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                        <div class="footer-col">
+                            <h3>Quick Links</h3>
+                            <ul class="footer-links">
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="movies.html">Movies</a></li>
+                                <li><a href="about.html">About Us</a></li>
+                                <li><a href="book.html">Book Tickets</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-col">
+                            <h3>Contact Info</h3>
+                            <ul class="footer-links">
+                                <li><a href="mailto:info@cinebooker.com"><i class="fas fa-envelope"></i> info@cinebooker.com</a></li>
+                                <li><a href="tel:+1234567890"><i class="fas fa-phone"></i> +123 456 7890</a></li>
+                                <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123 Cinema Street, Movie City</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>&copy; 2023 CineBooker. All Rights Reserved.</p>
+                    </div>
+                </div>
+            </footer>
+        
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const timeSlots = document.querySelectorAll('.time-slot');
+                    
+                    timeSlots.forEach(slot => {
+                        slot.addEventListener('click', function() {
+                            timeSlots.forEach(s => s.classList.remove('selected'));
+                            this.classList.add('selected');
+                        });
+                    });
+        
+                    const movieCards = document.querySelectorAll('.movie-card');
+                    
+                    movieCards.forEach(card => {
+                        card.addEventListener('mouseenter', function() {
+                            this.style.transform = 'translateY(-10px)';
+                            this.style.boxShadow = '0 15px 30px rgba(0,0,0,0.2)';
+                        });
+                        
+                        card.addEventListener('mouseleave', function() {
+                            this.style.transform = 'translateY(0)';
+                            this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+                        });
+                    });
+        
+                    const bookButtons = document.querySelectorAll('.book-btn');
+                    
+                    bookButtons.forEach(button => {
+                        button.addEventListener('click', function(e) {
+                            const card = this.closest('.movie-card');
+                            const title = card.querySelector('.movie-title').textContent;
+                            const timeSlot = card.querySelector('.time-slot.selected');
+                            
+                            if (!timeSlot) {
+                                e.preventDefault();
+                                alert('Please select a showtime for ' + title);
+                            }
+                        });
+                    });
+                });
+            </script>
+            <script>
+                //loading
+                window.addEventListener('load', function() {
+                 
+                  setTimeout(function() {
+                    const loader = document.querySelector('.vibrant-loader');
+                    loader.classList.add('hidden');
+                    
+                    
+                    setTimeout(function() {
+                      loader.remove();
+                    }, 800);
+                  }, 2000); 
+                });
+              
+                
+                setTimeout(function() {
+                  const loader = document.querySelector('.vibrant-loader');
+                  if (loader && !loader.classList.contains('hidden')) {
+                    loader.classList.add('hidden');
+                    setTimeout(function() {
+                      loader.remove();
+                    }, 800);
+                  }
+                }, 4000); 
+              </script>
+        </body>
+        </html>
